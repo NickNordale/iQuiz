@@ -56,7 +56,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func showAlert(sender: AnyObject) {
-        let alertController : UIAlertController = UIAlertController(title: "Setting alert", message: "Settings go here", preferredStyle: .Alert)
+        let alertController : UIAlertController = UIAlertController(title: "Settings alert", message: "Settings go here", preferredStyle: .Alert)
         let okAction : UIAlertAction = UIAlertAction(title: "Ok", style: .Default, handler: dismissAlert)
         
         alertController.addAction(okAction)
