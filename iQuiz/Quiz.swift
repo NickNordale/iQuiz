@@ -15,11 +15,18 @@ class Quiz {
     
     var qName: String
     var qDescription: String
-    var qImage: UIImage
+    var qImage: UIImage?
+    var qQuestions: [Question]
     
-    init(name: String, description: String, image: UIImage) {
+    init(name: String, description: String, questions: [Question]) {
         qName = name
         qDescription = description
-        qImage = image
+        qQuestions = questions
+    }
+    
+    init() {
+        qName = ""
+        qDescription = ""
+        qQuestions = [Question]()
     }
 }
