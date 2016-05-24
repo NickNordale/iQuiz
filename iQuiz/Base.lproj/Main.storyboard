@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -25,16 +25,16 @@
                                     <constraint firstAttribute="height" constant="58" id="Wiv-r4-aHo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ipN-p0-ixi">
-                                <rect key="frame" x="310" y="162" width="270" height="165"/>
-                                <state key="normal" title="Answer 2"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdB-9r-7pq">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hdB-9r-7pq">
                                 <rect key="frame" x="310" y="347" width="270" height="165"/>
+                                <accessibility key="accessibilityConfiguration" identifier="4"/>
                                 <state key="normal" title="Answer 4"/>
+                                <connections>
+                                    <action selector="answerSelection:" destination="OUb-Bc-4aV" eventType="touchUpInside" id="kPj-j8-bZY"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fmf-2p-1m5">
                                 <rect key="frame" x="20" y="532" width="560" height="48"/>
@@ -42,10 +42,9 @@
                                     <constraint firstAttribute="height" constant="48" id="MW2-JC-xbr"/>
                                 </constraints>
                                 <state key="normal" title="Submit"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DgI-3i-JTd">
-                                <rect key="frame" x="20" y="162" width="270" height="165"/>
-                                <state key="normal" title="Answer 1"/>
+                                <connections>
+                                    <segue destination="8yT-Mw-ZQl" kind="presentation" identifier="answer" id="cdS-i2-Tuh"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SP8-LU-qLN">
                                 <rect key="frame" x="20" y="30" width="80" height="32"/>
@@ -58,9 +57,29 @@
                                     <segue destination="BYZ-38-t0r" kind="presentation" id="LN6-MT-4fa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0a-QV-Ft4">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="i0a-QV-Ft4">
                                 <rect key="frame" x="20" y="347" width="270" height="165"/>
+                                <accessibility key="accessibilityConfiguration" identifier="3"/>
                                 <state key="normal" title="Answer 3"/>
+                                <connections>
+                                    <action selector="answerSelection:" destination="OUb-Bc-4aV" eventType="touchUpInside" id="1Vf-0V-CaN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ipN-p0-ixi">
+                                <rect key="frame" x="310" y="162" width="270" height="165"/>
+                                <accessibility key="accessibilityConfiguration" identifier="2"/>
+                                <state key="normal" title="Answer 2"/>
+                                <connections>
+                                    <action selector="answerSelection:" destination="OUb-Bc-4aV" eventType="touchUpInside" id="xGa-WX-604"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="DgI-3i-JTd">
+                                <rect key="frame" x="20" y="162" width="270" height="165"/>
+                                <accessibility key="accessibilityConfiguration" identifier="1"/>
+                                <state key="normal" title="Answer 1"/>
+                                <connections>
+                                    <action selector="answerSelection:" destination="OUb-Bc-4aV" eventType="touchUpInside" id="e4B-fg-e8k"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -143,32 +162,29 @@
                                     <constraint firstAttribute="width" constant="80" id="N3k-mV-TQw"/>
                                 </constraints>
                                 <state key="normal" title="Next"/>
+                                <connections>
+                                    <action selector="nextFunc:" destination="8yT-Mw-ZQl" eventType="touchUpInside" id="8yh-EU-Rwm"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boA-9S-wws">
-                                <rect key="frame" x="20" y="142" width="560" height="58"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="boA-9S-wws" secondAttribute="height" multiplier="280:29" id="OUu-5A-AIr"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="boA-9S-wws">
+                                <rect key="frame" x="20" y="142" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRW-up-kLu">
-                                <rect key="frame" x="20" y="338" width="560" height="58"/>
+                                <rect key="frame" x="20" y="264" width="560" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="nRW-up-kLu" secondAttribute="height" multiplier="280:29" id="jGW-cG-am2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct answer text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeu-rE-Mrl">
-                                <rect key="frame" x="20" y="240" width="560" height="58"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="yeu-rE-Mrl" secondAttribute="height" multiplier="280:29" id="4zC-kU-z69"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct answer text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yeu-rE-Mrl">
+                                <rect key="frame" x="20" y="203" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -193,12 +209,17 @@
                     </view>
                     <connections>
                         <outlet property="backButton" destination="XaX-fj-IcN" id="vq1-9L-bWF"/>
+                        <outlet property="correctAns" destination="yeu-rE-Mrl" id="xmx-bZ-7wt"/>
                         <outlet property="nextButton" destination="TUl-2w-9us" id="tMs-qt-JvJ"/>
+                        <outlet property="qText" destination="boA-9S-wws" id="sD6-2l-J6e"/>
+                        <outlet property="successText" destination="nRW-up-kLu" id="Lc5-YX-JkK"/>
+                        <segue destination="Avc-mx-QLJ" kind="presentation" identifier="results" id="rEt-MR-Mbq"/>
+                        <segue destination="OUb-Bc-4aV" kind="presentation" identifier="question" id="V8H-dl-OEp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bhw-6n-baP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="961" y="437"/>
+            <point key="canvasLocation" x="1809" y="385"/>
         </scene>
         <!--Finished-->
         <scene sceneID="wZ3-6F-hd7">
@@ -212,13 +233,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descriptive text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiE-Cq-h4k">
-                                <rect key="frame" x="20" y="50" width="560" height="81"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="kiE-Cq-h4k" secondAttribute="height" multiplier="560:81" id="4W4-Oe-BQY"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descriptive text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kiE-Cq-h4k">
+                                <rect key="frame" x="20" y="50" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4h-E7-PFt">
@@ -229,16 +247,23 @@
                                 </constraints>
                                 <state key="normal" title="Next"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" id="7EB-S5-pmB"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="done table" id="7EB-S5-pmB"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZe-Iz-Dt3">
-                                <rect key="frame" x="20" y="161" width="560" height="207"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="YZe-Iz-Dt3" secondAttribute="height" multiplier="560:207" id="ruc-eJ-Mfy"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="20" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YZe-Iz-Dt3">
+                                <rect key="frame" x="20" y="101" width="560" height="168"/>
+                                <string key="text">Question 1: Who is Iron Man?
+	Correct :)
+
+Question 2: Who founded the X-Men?
+	Correct :)
+
+Question 3: How did Spider-Man get his powers?
+	Incorrect :(
+
+You got 67%</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -339,7 +364,7 @@
                                             <outlet property="qDescription" destination="acV-vM-CgB" id="RPV-RL-BZq"/>
                                             <outlet property="qImage" destination="7rm-zd-TD9" id="LiJ-WG-N4v"/>
                                             <outlet property="qName" destination="QKY-BV-zpy" id="spc-yI-Jo0"/>
-                                            <segue destination="OUb-Bc-4aV" kind="presentation" id="tb1-cN-6sq"/>
+                                            <segue destination="OUb-Bc-4aV" kind="presentation" identifier="question" id="tb1-cN-6sq"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -372,6 +397,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="LN6-MT-4fa"/>
+        <segue reference="V8H-dl-OEp"/>
+        <segue reference="7EB-S5-pmB"/>
     </inferredMetricsTieBreakers>
 </document>

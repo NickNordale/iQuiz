@@ -10,6 +10,12 @@ import UIKit
 
 class qViewController: UIViewController {
     
+    var quizzes = [Quiz]()
+    
+    var quiz = Quiz()
+    var currentSelection = 0
+    var answers = [Int]()
+    
     @IBOutlet weak var qText: UILabel!
     
     @IBOutlet weak var answer1: UIButton!
@@ -21,10 +27,46 @@ class qViewController: UIViewController {
 
     @IBOutlet weak var backButton: UIButton!
     
+    @IBAction func answerSelection(sender: UIButton) {
+        if sender.accessibilityIdentifier == "1" {
+            recolor(0)
+            currentSelection = 1
+        }
+        else if sender.accessibilityIdentifier == "2" {
+            recolor(1)
+            currentSelection = 2
+        }
+        else if sender.accessibilityIdentifier == "3" {
+            recolor(2)
+            currentSelection = 3
+        }
+        else if sender.accessibilityIdentifier == "4" {
+            recolor(3)
+            currentSelection = 4
+        }
+        submit.userInteractionEnabled = true
+    }
+    
+    func recolor(buttonSelection: Int) {
+        let bArr = [answer1, answer2, answer3, answer4]
+        for i in 0...(bArr.count - 1) {
+            if i == buttonSelection {
+                bArr[i].backgroundColor = UIColor.grayColor()
+            }
+            else {
+                bArr[i].backgroundColor = UIColor.whiteColor()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        submit.userInteractionEnabled = false
+        qText.text = quiz.qQuestions[answers.count].qText
+        answer1.setTitle(quiz.qQuestions[answers.count].qAnswers[0], forState: .Normal)
+        answer2.setTitle(quiz.qQuestions[answers.count].qAnswers[1], forState: .Normal)
+        answer3.setTitle(quiz.qQuestions[answers.count].qAnswers[2], forState: .Normal)
+        answer4.setTitle(quiz.qQuestions[answers.count].qAnswers[3], forState: .Normal)
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,15 +74,15 @@ class qViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        answers.append(currentSelection)
+        if segue.identifier == "answer" {
+            let vc = segue.destinationViewController as! aViewController
+            vc.quiz = self.quiz
+            vc.answers = self.answers
+            vc.quizzes = quizzes
+        }
     }
-    */
 
 }

@@ -14,7 +14,7 @@ class Quizzes: NSObject {
     // Properties
     var data: [Quiz]
     
-    init() {
+    override init() {
         data = [Quiz]()
     }
     

@@ -13,24 +13,19 @@ import CoreData
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     @IBOutlet weak var qTableView: UITableView!
     
-    func checkLocalStorage() {
-        let tempDirURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(NSProcessInfo.processInfo().globallyUniqueString, isDirectory: true)
-        let filePath = tempDirURL.URLByAppendingPathComponent("quiz.json").absoluteString
-        let fileManager = NSFileManager.defaultManager()
-        if fileManager.fileExistsAtPath(filePath) {
-            print("FILE AVAILABLE")
-        } else {
-            print("FILE NOT AVAILABLE")
-        }
-    }
-    
     var quizzes = [Quiz]()
+    var json: AnyObject = ""
     var images = [UIImage(named: "science")!, UIImage(named: "marvel")!, UIImage(named: "math")!]
     
     var urlAlertField = ""
     
+    let nsDefaults = NSUserDefaults.standardUserDefaults()
+    var quizData: NSData?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.qTableView.delegate = self
+        self.qTableView.dataSource = self
         loadQuizzes()
     }
     
@@ -70,13 +65,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.qDescription.text = quiz.qDescription
             cell.qImage.image = quiz.qImage
         }
-        
         return cell
     }
     
-    func getData(urlPassed: String, completion: ((qs: [Quiz]?) -> Void)) {
+    func parseJson(dataIn: AnyObject) {
         var getQuizzes = [Quiz]()
-        
+        if let jsonQuizzes = dataIn as? [[String: AnyObject]] {
+            for jsonObj in jsonQuizzes {
+                let newQuiz : Quiz = Quiz()
+                if let ifQuestions = jsonObj["questions"] as? [[String: AnyObject]] {
+                    for question in ifQuestions {
+                        let textParsed = (question["text"] as? String)!
+                        let answerParsed = (question["answer"] as? String)!
+                        let answersParsed = (question["answers"] as? [String])!
+                        let newQuestion : Question = Question(text: textParsed, answer: Int(answerParsed)!, answers: answersParsed)
+                        newQuiz.qQuestions.append(newQuestion)
+                    }
+                }
+                
+                if let ifTitle = jsonObj["title"] as? String {
+                    newQuiz.qName = ifTitle
+                }
+                
+                if let ifDesc = jsonObj["desc"] as? String {
+                    newQuiz.qDescription = ifDesc
+                }
+                getQuizzes.append(newQuiz)
+            }
+        }
+        quizzes = getQuizzes
+        loadQuizzes()
+    }
+    
+    func getData(urlPassed: String) {
         let requestURL: NSURL = NSURL(string: urlPassed)!
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
         let session = NSURLSession.sharedSession()
@@ -88,38 +109,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             if (statusCode == 200) {
                 do{
-                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options:.AllowFragments)
-                    if let jsonQuizzes = json as? [[String: AnyObject]] {
-                        for jsonObj in jsonQuizzes {
-                            var newQuiz : Quiz = Quiz()
-                            if let ifQuestions = jsonObj["questions"] as? [[String: AnyObject]] {
-                                for question in ifQuestions {
-                                    let textParsed = (question["text"] as? String)!
-                                    let answerParsed = (question["answer"] as? String)!
-                                    let answersParsed = (question["answers"] as? [String])!
-                                    let newQuestion : Question = Question(text: textParsed, answer: Int(answerParsed)!, answers: answersParsed)
-                                    newQuiz.qQuestions.append(newQuestion)
-                                }
-                            }
-                            
-                            if let ifTitle = jsonObj["title"] as? String {
-                                newQuiz.qName = ifTitle
-                            }
-                            
-                            if let ifDesc = jsonObj["desc"] as? String {
-                                newQuiz.qDescription = ifDesc
-                            }
-                            getQuizzes.append(newQuiz)
-                        }
-                    }
-                    completion(qs: getQuizzes)
+                    let jsonData = try NSJSONSerialization.JSONObjectWithData(data!, options:.AllowFragments)
+                    self.json = jsonData
+                    self.nsDefaults.setObject(self.json, forKey: "qdata")
+                    self.parseJson(self.json)
                 } catch {
-                    let downloadErrorAlertController : UIAlertController = UIAlertController(title: "Settings alert", message: "Settings go here", preferredStyle: .Alert)
+                    let downloadErrorAlertController : UIAlertController = UIAlertController(title: "Error downloading data", message: "Loading data now from local storage", preferredStyle: .Alert)
                     let deOkAction : UIAlertAction = UIAlertAction(title: "Dismiss", style: .Default, handler: self.dismissAlert)
-                    
                     downloadErrorAlertController.addAction(deOkAction)
-                    
                     self.presentViewController(downloadErrorAlertController, animated: true, completion: nil)
+                    self.json = (self.nsDefaults.objectForKey("qdata") as? NSData)!
+                    self.parseJson(self.json)
                 }
             }
         }
@@ -140,12 +140,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let checkNow : UIAlertAction = UIAlertAction(title: "Check now", style: .Default, handler: { (action) -> Void in
             if urlInputField!.text == "http://tednewardsandbox.site44.com/questions.json" {
-                self.getData(urlInputField!.text!) { qs in
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.quizzes = qs!
-                        self.loadQuizzes()
-                    }
-                }
+                self.getData(urlInputField!.text!)
             } else {
                 self.dismissAlert(okAction)
                 let errorAlertController : UIAlertController = UIAlertController(title: "Invalid URL", message: "url is not valid json data address", preferredStyle: .Alert)
@@ -162,6 +157,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func dismissAlert(alert: UIAlertAction!) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "question") {
+            let qVC = segue.destinationViewController as! qViewController
+            qVC.quiz = quizzes[(qTableView.indexPathForSelectedRow?.row)!]
+            qVC.quizzes = quizzes
+        }
     }
 }
 
